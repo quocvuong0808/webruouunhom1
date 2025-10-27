@@ -18,7 +18,52 @@ const pool = require('../config/db');
 
 exports.getAll = async (req, res, next) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM products ORDER BY created_at DESC');
+    // Support server-side filtering by category and type to avoid client-side mismatches
+    const { category, type } = req.query || {};
+
+    const conditions = [];
+    const params = [];
+
+    if (category) {
+      conditions.push('p.category_id = ?');
+      params.push(Number(category));
+    }
+
+    // If type is provided, try exact match on `type`, fuzzy LIKE on `type`,
+    // and a token-based name match as a fallback (all tokens must appear in name).
+    if (type) {
+      const raw = String(type).toLowerCase();
+      const tokens = raw.split(/[-_\s]+/).map(t => t.trim()).filter(Boolean);
+
+      const typeConditions = [];
+      // exact match
+      typeConditions.push('LOWER(p.type) = ?');
+      params.push(raw);
+      // partial match on type
+      typeConditions.push('LOWER(p.type) LIKE ?');
+      params.push('%' + raw + '%');
+
+      // tokenized name matches (require all tokens present)
+      if (tokens.length > 0) {
+        const nameLikeConds = tokens.map(() => 'LOWER(p.name) LIKE ?').join(' AND ');
+        typeConditions.push('(' + nameLikeConds + ')');
+        tokens.forEach(t => params.push('%' + t + '%'));
+      }
+
+      conditions.push('(' + typeConditions.join(' OR ') + ')');
+    }
+
+    const where = conditions.length ? ('WHERE ' + conditions.join(' AND ')) : '';
+
+    const sql = `
+      SELECT p.*, c.name as category_name
+      FROM products p
+      LEFT JOIN categories c ON p.category_id = c.category_id
+      ${where}
+      ORDER BY p.created_at DESC
+    `;
+
+    const [rows] = await pool.query(sql, params);
     res.json(rows);
   } catch (err) { next(err); }
 };

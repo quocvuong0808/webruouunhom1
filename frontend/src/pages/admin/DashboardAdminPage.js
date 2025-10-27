@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getOrderStats } from '../../services/orderService';
 import { getProductStats } from '../../services/productService';
 import { getAllCustomersStats } from '../../services/customerService';
-
+import './DashboardAdminPage.css';
 const DashboardAdminPage = () => {
   const [orderStats, setOrderStats] = useState(null);
   const [productStats, setProductStats] = useState(null);

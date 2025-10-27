@@ -34,6 +34,21 @@ const useProducts = () => {
   // Extract products array from API response
   const allProducts = apiData?.products || [];
 
+  // debug: print a small sample of products returned from API (useful to check 'type' field)
+  useEffect(() => {
+    if (allProducts && allProducts.length) {
+      try {
+        const sample = allProducts.slice(0, 10).map(p => ({ id: p.product_id, name: p.name, category_id: p.category_id, type: p.type }));
+        console.debug('[useProducts] API products sample:', sample);
+        // show distinct types present in the sample
+        const types = Array.from(new Set(allProducts.map(p => (p.type || '').toString().toLowerCase()).filter(Boolean)));
+        console.debug('[useProducts] distinct types (sample):', types.slice(0, 20));
+      } catch (err) {
+        console.debug('[useProducts] debug sample failed', err);
+      }
+    }
+  }, [allProducts]);
+
   // Filter and sort products
   const filteredProducts = useCallback(() => {
     if (!allProducts || !Array.isArray(allProducts)) return [];
@@ -50,14 +65,17 @@ const useProducts = () => {
 
     // Apply category filter
     if (categoryFilter) {
-      filtered = filtered.filter(product => 
-        product.category_id === parseInt(categoryFilter)
-      );
+      const catNum = Number(categoryFilter);
+      filtered = filtered.filter(product => {
+        // product.category_id may come as string or number from API
+        return Number(product.category_id) === catNum;
+      });
     }
 
     // Apply type filter (e.g., 'vieng', 'sinh-nhat', 'ke-chuc-mung')
     if (typeFilter) {
-      filtered = filtered.filter(product => String(product.type || '').toLowerCase() === String(typeFilter).toLowerCase());
+      const tf = String(typeFilter || '').toLowerCase();
+      filtered = filtered.filter(product => String(product.type || '').toLowerCase() === tf);
     }
 
     // Apply sorting
@@ -88,6 +106,16 @@ const useProducts = () => {
   }, [allProducts, debouncedSearchTerm, categoryFilter, typeFilter, sortBy, sortOrder]);
 
   const processedProducts = filteredProducts();
+
+  // debug: log filter state and resulting count to help diagnose filtering issues
+  useEffect(() => {
+    try {
+      console.debug('[useProducts] filters -> categoryFilter:', categoryFilter, 'typeFilter:', typeFilter, 'searchTerm:', debouncedSearchTerm);
+      console.debug('[useProducts] processedProducts count:', processedProducts.length);
+    } catch (err) {
+      console.debug('[useProducts] filter debug error', err);
+    }
+  }, [categoryFilter, typeFilter, debouncedSearchTerm, processedProducts.length]);
 
   // Use pagination hook
   const {

@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="product-card">
-      <div className="product-image-container">
+      <Link to={`/products/${product.product_id}`} className="product-image-container" style={{display:'block'}}>
         <img 
           src={imageUrl} 
           className="product-image" 
@@ -71,7 +71,7 @@ export default function ProductCard({ product }) {
           }}
         />
         {product.stock === 0 && <div className="out-of-stock-overlay">Hết hàng</div>}
-      </div>
+      </Link>
       <div className="product-info">
         <h5 className="product-name" title={product.name}>
           {product.name}
@@ -85,12 +85,6 @@ export default function ProductCard({ product }) {
           </p>
         )}
         <div className="product-actions">
-          <Link 
-            className="btn btn-detail" 
-            to={`/products/${product.product_id}`}
-          >
-            Chi tiết
-          </Link>
           <button 
             className="btn btn-add-cart" 
             onClick={handleAddToCart}

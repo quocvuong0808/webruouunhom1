@@ -1,43 +1,170 @@
-/* ProductEditAdminPage.css */
+/* ProductAdmin.css */
 
-.product-edit-container {
-  max-width: 600px;
-  margin: 20px auto; /* Centers the container and adds vertical spacing */
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.admin-product-page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f9fafb;
+  min-height: 100vh;
+  padding-bottom: 40px;
 }
 
-.product-edit-form h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 1.75rem;
-  color: #333;
+.admin-product-page h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #e67e22;
 }
 
-.product-edit-form .form-control {
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-size: 1rem;
-}
-
-.product-edit-form .form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.product-edit-form button.btn {
-  width: 100%;
-  padding: 12px;
-  font-size: 1.1rem;
+/* Button Styles */
+.admin-btn {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
   font-weight: 600;
-  border-radius: 5px;
+  border: none;
+  outline: none;
 }
 
-/* Optional: Style for the textarea to have a fixed height and resize handle */
-textarea.form-control {
-  resize: vertical;
-  min-height: 100px;
+.admin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-btn:active {
+  transform: translateY(0);
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.admin-btn-danger:hover {
+  background: #dc2626 !important;
+}
+
+/* Table Styles */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.admin-table thead {
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.admin-table th {
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.15s ease;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.admin-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.admin-table td {
+  padding: 12px;
+  font-size: 14px;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+.admin-table td img {
+  display: block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.admin-table td img:hover {
+  transform: scale(1.05);
+}
+
+/* Pagination Styles */
+.admin-product-page button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-product-page button:not([disabled]):hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Loading State */
+.admin-product-page p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-product-page {
+    padding: 16px !important;
+  }
+
+  .admin-product-page h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .admin-table {
+    font-size: 13px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 8px 6px;
+  }
+
+  .admin-table td img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .admin-btn {
+    font-size: 12px;
+    padding: 5px 10px !important;
+  }
+}
+
+/* Empty State */
+.admin-table tbody td[colspan] {
+  color: #94a3b8;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Card Container */
+.admin-product-page > div[style*="overflowX"] {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+/* Additional Polish */
+.admin-product-page button[style*="background: #10b981"] {
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.3);
+}
+
+.admin-product-page button[style*="background: #3b82f6"] {
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.3);
+}
+
+.admin-product-page button[style*="background: #ef4444"] {
+  box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3);
 }

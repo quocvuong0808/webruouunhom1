@@ -1,0 +1,356 @@
+/* ProductAdmin.css */
+
+.admin-product-page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f9fafb;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.admin-product-page h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #e67e22;
+}
+
+/* Button Styles */
+.admin-btn {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+
+.admin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-btn:active {
+  transform: translateY(0);
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.admin-btn-danger:hover {
+  background: #dc2626 !important;
+}
+
+/* Table Styles */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.admin-table thead {
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.admin-table th {
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.15s ease;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.admin-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.admin-table td {
+  padding: 12px;
+  font-size: 14px;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+.admin-table td img {
+  display: block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.admin-table td img:hover {
+  transform: scale(1.05);
+}
+
+/* Pagination Styles */
+.admin-product-page button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-product-page button:not([disabled]):hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Loading State */
+.admin-product-page p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-product-page {
+    padding: 16px !important;
+  }
+
+  .admin-product-page h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .admin-table {
+    font-size: 13px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 8px 6px;
+  }
+
+  .admin-table td img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .admin-btn {
+    font-size: 12px;
+    padding: 5px 10px !important;
+  }
+}
+
+/* Empty State */
+.admin-table tbody td[colspan] {
+  color: #94a3b8;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Card Container */
+.admin-product-page > div[style*="overflowX"] {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+/* Additional Polish */
+.admin-product-page button[style*="background: #10b981"] {
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.3);
+}
+
+.admin-product-page button[style*="background: #3b82f6"] {
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.3);
+}
+
+.admin-product-page button[style*="background: #ef4444"] {
+  box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3);
+}
+
+/* ===========================
+   PRODUCT EDIT/CREATE FORM
+   =========================== */
+
+.admin-product-form {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+.admin-product-form h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #e67e22;
+  text-align: center;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+/* Input Fields */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea,
+.form-group select,
+.filter-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group textarea:focus,
+.form-group select:focus,
+.filter-select:focus {
+  border-color: #e67e22;
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+}
+
+.form-group input[type="text"]:hover,
+.form-group input[type="number"]:hover,
+.form-group input[type="email"]:hover,
+.form-group input[type="password"]:hover,
+.form-group textarea:hover,
+.form-group select:hover,
+.filter-select:hover {
+  border-color: #9ca3af;
+}
+
+/* Textarea */
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+/* File Input */
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.form-group input[type="file"]:hover {
+  border-color: #e67e22;
+  background: #fff7ed;
+}
+
+.form-group input[type="file"]::file-selector-button {
+  padding: 6px 16px;
+  border: none;
+  background: #e67e22;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  margin-right: 12px;
+  transition: background 0.2s ease;
+}
+
+.form-group input[type="file"]::file-selector-button:hover {
+  background: #d35400;
+}
+
+/* Image Preview */
+.form-group img {
+  display: block;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+/* Select Dropdown */
+.form-group select,
+.filter-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23374151' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* Form Buttons */
+.admin-product-form button[type="submit"] {
+  flex: 1;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.admin-product-form button[type="button"] {
+  flex: 1;
+  box-shadow: 0 2px 4px rgba(245, 158, 66, 0.3);
+}
+
+.admin-product-form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.admin-product-form button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Responsive Form */
+@media (max-width: 768px) {
+  .admin-product-form {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .admin-product-form h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

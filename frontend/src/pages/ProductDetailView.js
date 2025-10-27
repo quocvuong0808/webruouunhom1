@@ -13,23 +13,15 @@ export default function ProductDetailView({
   navigate
 }) {
   // Chuẩn hóa đường dẫn ảnh (nếu là đường dẫn tương đối thì thêm domain backend)
-  // Thống nhất normalizeImageUrl giống homepage
   const normalizeImageUrl = (raw) => {
-    if (!raw) return '/placeholder.svg';
+    if (!raw) return '/api/placeholder/400/400';
     let url = String(raw).trim();
     if (/^https?:\/\//i.test(url)) return url;
-    url = url.replace(/\\/g, '/');
-    url = url.replace(/^[a-zA-Z]:\//, '/');
-    if (!url.startsWith('/')) url = '/' + url;
-    try {
-      const parts = url.split('/').map(encodeURIComponent);
-      url = parts.join('/').replace(/^%2F/, '/');
-    } catch (e) {
-      url = encodeURI(url);
-    }
+    // Nếu là đường dẫn /uploads/... thì thêm domain backend
     if (url.startsWith('/uploads/')) {
-      url = `http://localhost:5000${url}`;
+      return (process.env.REACT_APP_API_URL?.replace(/\/api$/, '') || 'http://localhost:5000') + url;
     }
+    // Nếu là đường dẫn public khác
     return url;
   };
   const productImages = product.image_url ? [normalizeImageUrl(product.image_url)] : ['/api/placeholder/400/400'];

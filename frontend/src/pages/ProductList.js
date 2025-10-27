@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
 import { useDebounce } from '../hooks/useDebounce';
+import { normalizeTypeParam } from '../utils/normalizeType';
+import { normalizeString } from '../utils/normalizeString';
 import ProductCard from '../components/ProductCard';
 import Pagination from '../components/Pagination';
 import './ProductList.css';
@@ -23,7 +25,10 @@ export default function ProductList() {
   useEffect(() => {
     const urlCategory = searchParams.get('category') || '';
     setSelectedCategory(urlCategory);
-    const urlType = searchParams.get('type') || '';
+    const urlTypeRaw = searchParams.get('type') || '';
+    const urlType = normalizeTypeParam(urlTypeRaw);
+    // debug: show incoming URL params and normalization
+    console.debug('[ProductList] URL params -> category:', urlCategory, 'typeRaw:', urlTypeRaw, 'normalizedType:', urlType);
     setSelectedType(urlType);
   }, [searchParams]);
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'name');
@@ -99,10 +104,11 @@ export default function ProductList() {
   // Khi chọn type (sub-category), cập nhật URL params để đồng bộ với menu header
   const handleTypeChange = (e) => {
     const value = e.target.value;
-    setSelectedType(value);
+    const normalized = normalizeTypeParam(value);
+    setSelectedType(normalized);
     const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set('type', value);
+    if (normalized) {
+      params.set('type', normalized);
     } else {
       params.delete('type');
     }
@@ -132,6 +138,44 @@ export default function ProductList() {
   // products already filtered inside useProducts by category/type when we call handlers
   const filteredProductsByType = products;
 
+
+  // Prepare a safe fallback: if a `type` is selected but it returns zero products,
+  // first try a fuzzy-name match (match normalized tokens from selectedType against product name).
+  // If that yields nothing, fall back to showing all products for the selected `category` (non-destructive).
+  const categoryOnlyProducts = selectedCategory
+    ? (allProducts || []).filter(p => Number(p.category_id) === Number(selectedCategory))
+    : [];
+
+  let fuzzyMatches = [];
+  if (selectedType && products.length === 0) {
+    try {
+      // tokens from selectedType e.g. 'ke-vieng' -> ['ke','vieng']
+      const tokens = String(selectedType).split(/[-_\s]+/).map(t => normalizeString(t)).filter(Boolean);
+      if (tokens.length > 0) {
+        const pool = categoryOnlyProducts.length > 0 ? categoryOnlyProducts : (allProducts || []);
+        fuzzyMatches = pool.filter(p => {
+          const name = normalizeString(p.name || p.title || '');
+          // require all tokens to be present in name
+          return tokens.every(tok => name.includes(tok));
+        });
+      }
+    } catch (err) {
+      console.warn('[ProductList] fuzzy matching failed', err);
+      fuzzyMatches = [];
+    }
+  }
+
+  const isFallback = selectedType && (products.length === 0) && (fuzzyMatches.length === 0) && categoryOnlyProducts.length > 0;
+  // priority: exact type-filtered `products` -> fuzzyMatches -> categoryOnlyProducts
+  const displayedProducts = (products && products.length > 0)
+    ? products
+    : (fuzzyMatches && fuzzyMatches.length > 0)
+      ? fuzzyMatches
+      : categoryOnlyProducts;
+
+  // debug: show selected filters and counts (helpful to diagnose why sub-type shows nothing)
+  console.debug('[ProductList] selectedCategory:', selectedCategory, 'selectedType:', selectedType, 'productsCount:', products.length, 'fuzzyMatches:', fuzzyMatches.length, 'categoryOnlyCount:', categoryOnlyProducts.length, 'displayedCount:', displayedProducts.length, 'isFallback:', isFallback);
+
   // Tiêu đề động cho type
   const typeTitles = {
     'vieng': 'Giỏ trái cây viếng',
@@ -153,7 +197,7 @@ export default function ProductList() {
           <div className="header-content">
             <h1>{dynamicTitle || 'Tất cả sản phẩm'}</h1>
             <div className="header-right">
-              <span className="product-count">{products.length} sản phẩm</span>
+              <span className="product-count">{displayedProducts.length} sản phẩm</span>
               <select
                 value={sortBy}
                 onChange={handleSortChange}
@@ -195,7 +239,7 @@ export default function ProductList() {
                 Thử lại
               </button>
             </div>
-          ) : products.length === 0 ? (
+          ) : displayedProducts.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">🔍</div>
               <h3>
@@ -218,8 +262,16 @@ export default function ProductList() {
             </div>
           ) : (
             <>
+              {/* Inform the user if we fell back to category results because the selected type had no items */}
+              {isFallback && (
+                <div className="fallback-banner">
+                  <p>
+                    Không tìm thấy sản phẩm cho nhóm nhỏ này. Hiển thị tất cả sản phẩm trong danh mục.
+                  </p>
+                </div>
+              )}
               <div className="products-grid">
-                {(filteredProductsByType || []).map(product => (
+                {(displayedProducts || []).map(product => (
                   <ProductCard 
                     key={product.product_id} 
                     product={product}

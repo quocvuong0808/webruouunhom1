@@ -391,6 +391,10 @@
   padding: 0 2rem;
 }
 
+/* Hide stock count on homepage cards ("Còn X sản phẩm") */
+.homepage-products-grid .product-stock {
+  display: none !important;
+}
 .product-card {
   background: #fff;
   border-radius: 12px;

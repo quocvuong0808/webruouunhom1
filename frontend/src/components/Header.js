@@ -201,34 +201,34 @@ function DesktopNav({ user, isActive, closeMenu, handleLogout }) {
           </Link>
 
           {/* Imported Fruits */}
-          <Link to="/products?category=3" className={`nav-link-item ${isActive('/products?category=3') ? 'active' : ''}`}>
+          <Link to="/products?category=1" className={`nav-link-item ${isActive('/products?category=1') ? 'active' : ''}`}>
             Trái cây nhập khẩu
           </Link>
 
           {/* Vietnamese Fruits */}
-          <Link to="/products?category=4" className={`nav-link-item ${isActive('/products?category=4') ? 'active' : ''}`}>
+          <Link to="/products?category=5" className={`nav-link-item ${isActive('/products?category=5') ? 'active' : ''}`}>
             Trái cây Việt Nam
           </Link>
 
           {/* Fresh Flowers Dropdown */}
           <div className="nav-dropdown-wrapper">
-            <Link to="/products?category=5" className="nav-link-item dropdown-trigger">
+            <Link to="/products?category=3" className="nav-link-item dropdown-trigger">
               Hoa tươi <span className="arrow">▼</span>
             </Link>
             <div className="nav-dropdown-menu">
-              <Link to="/products?category=5" className="dropdown-link" onClick={closeMenu}>
+              <Link to="/products?category=3" className="dropdown-link" onClick={closeMenu}>
                 Tất cả hoa tươi
               </Link>
-              <Link to="/products?category=5&type=ke-chuc-mung" className="dropdown-link" onClick={closeMenu}>
+              <Link to="/products?category=3&type=ke-chuc-mung" className="dropdown-link" onClick={closeMenu}>
                 Kệ hoa chúc mừng
               </Link>
-              <Link to="/products?category=5&type=ke-vieng" className="dropdown-link" onClick={closeMenu}>
+              <Link to="/products?category=3&type=ke-vieng" className="dropdown-link" onClick={closeMenu}>
                 Kệ hoa kính viếng
               </Link>
-              <Link to="/products?category=5&type=bo-chuc-mung" className="dropdown-link" onClick={closeMenu}>
+              <Link to="/products?category=3&type=bo-chuc-mung" className="dropdown-link" onClick={closeMenu}>
                 Bó hoa chúc mừng
               </Link>
-              <Link to="/products?category=5&type=bo-vieng" className="dropdown-link" onClick={closeMenu}>
+              <Link to="/products?category=3&type=bo-vieng" className="dropdown-link" onClick={closeMenu}>
                 Bó hoa kính viếng
               </Link>
             </div>
@@ -236,25 +236,25 @@ function DesktopNav({ user, isActive, closeMenu, handleLogout }) {
 
           {/* Fruit Baskets Dropdown */}
           <div className="nav-dropdown-wrapper">
-            <Link to="/products?category=1" className="nav-link-item dropdown-trigger">
+            <Link to="/products?category=2" className="nav-link-item dropdown-trigger">
               Giỏ quà trái cây <span className="arrow">▼</span>
             </Link>
             <div className="nav-dropdown-menu">
-              <Link to="/products?category=1" className="dropdown-link" onClick={closeMenu}>
-                Tất cả giỏ quà
-              </Link>
-              <Link to="/products?category=1&type=sinh-nhat" className="dropdown-link" onClick={closeMenu}>
-                Giỏ sinh nhật
-              </Link>
-              <Link to="/products?category=1&type=cuoi-hoi" className="dropdown-link" onClick={closeMenu}>
-                Giỏ cưới hỏi
-              </Link>
-              <Link to="/products?category=1&type=tan-gia" className="dropdown-link" onClick={closeMenu}>
-                Giỏ tân gia
-              </Link>
-              <Link to="/products?category=1&type=vieng" className="dropdown-link" onClick={closeMenu}>
-                Giỏ viếng
-              </Link>
+              <Link to="/products?category=2" className="dropdown-link" onClick={closeMenu}>
+                  Tất cả giỏ quà
+                </Link>
+                <Link to="/products?category=2&type=sinh-nhat" className="dropdown-link" onClick={closeMenu}>
+                  Giỏ sinh nhật
+                </Link>
+                <Link to="/products?category=2&type=cuoi-hoi" className="dropdown-link" onClick={closeMenu}>
+                  Giỏ cưới hỏi
+                </Link>
+                <Link to="/products?category=2&type=tan-gia" className="dropdown-link" onClick={closeMenu}>
+                  Giỏ tân gia
+                </Link>
+                <Link to="/products?category=2&type=vieng" className="dropdown-link" onClick={closeMenu}>
+                  Giỏ viếng
+                </Link>
             </div>
           </div>
 
@@ -313,14 +313,14 @@ function MobileOverlay({ user, openAccordion, toggleAccordion, closeMenu, handle
 
         {/* Imported Fruits */}
         <div className="menu-item">
-          <Link to="/products?category=3" className="menu-link" onClick={closeMenu}>
+          <Link to="/products?category=1" className="menu-link" onClick={closeMenu}>
             🍎 Trái cây nhập khẩu
           </Link>
         </div>
 
         {/* Vietnamese Fruits */}
         <div className="menu-item">
-          <Link to="/products?category=4" className="menu-link" onClick={closeMenu}>
+          <Link to="/products?category=5" className="menu-link" onClick={closeMenu}>
             🍊 Trái cây Việt Nam
           </Link>
         </div>
@@ -334,19 +334,19 @@ function MobileOverlay({ user, openAccordion, toggleAccordion, closeMenu, handle
             💐 Hoa tươi <span className="chev">▸</span>
           </button>
           <div className={`panel ${openAccordion === 'flowers' ? 'open' : ''}`}>
-            <Link to="/products?category=5" onClick={closeMenu}>
+            <Link to="/products?category=3" onClick={closeMenu}>
               Tất cả hoa tươi
             </Link>
-            <Link to="/products?category=5&type=ke-chuc-mung" onClick={closeMenu}>
+            <Link to="/products?category=3&type=ke-chuc-mung" onClick={closeMenu}>
               🎉 Kệ hoa chúc mừng
             </Link>
-            <Link to="/products?category=5&type=ke-vieng" onClick={closeMenu}>
+            <Link to="/products?category=3&type=ke-vieng" onClick={closeMenu}>
               🕯️ Kệ hoa kính viếng
             </Link>
-            <Link to="/products?category=5&type=bo-chuc-mung" onClick={closeMenu}>
+            <Link to="/products?category=3&type=bo-chuc-mung" onClick={closeMenu}>
               🎊 Bó hoa chúc mừng
             </Link>
-            <Link to="/products?category=5&type=bo-vieng" onClick={closeMenu}>
+            <Link to="/products?category=3&type=bo-vieng" onClick={closeMenu}>
               💐 Bó hoa kính viếng
             </Link>
           </div>
@@ -361,7 +361,7 @@ function MobileOverlay({ user, openAccordion, toggleAccordion, closeMenu, handle
             🧺 Giỏ quà trái cây <span className="chev">▸</span>
           </button>
           <div className={`panel ${openAccordion === 'baskets' ? 'open' : ''}`}>
-            <Link to="/products?category=1" onClick={closeMenu}>
+            <Link to="/products?category=2" onClick={closeMenu}>
               Tất cả giỏ quà
             </Link>
             <Link to="/products?category=1&type=sinh-nhat" onClick={closeMenu}>
