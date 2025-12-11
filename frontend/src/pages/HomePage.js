@@ -29,7 +29,7 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <Helmet>
-        <title>OanhTraiCay - Trái cây tươi, giỏ quà cao cấp</title>
+        <title>Web bán rượu</title>
         <meta name="description" content="OanhTraiCay - Trái cây tươi ngon, giỏ quà và giỏ hoa cao cấp. Giao hàng nhanh, đóng gói sang trọng." />
         <meta property="og:title" content="OanhTraiCay - Trái cây tươi, giỏ quà cao cấp" />
         <meta property="og:description" content="Trái cây tươi ngon, giỏ quà và giỏ hoa cao cấp. Giao hàng nhanh, đóng gói sang trọng." />
@@ -70,7 +70,7 @@ export default function HomePage() {
           )}
           {!loading && !error && products.length === 0 && (
             <div className="empty-state">
-              <div className="empty-icon">🍎</div>
+              <div className="empty-icon"></div>
               <h3>Chưa có sản phẩm nổi bật</h3>
               <p>Hệ thống đang cập nhật các sản phẩm mới. Vui lòng quay lại sau!</p>
             </div>

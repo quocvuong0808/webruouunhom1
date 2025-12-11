@@ -1,0 +1,78 @@
+/* PrivacyPolicy.css
+   Nền trắng, chữ đen, kiểu hiển thị rõ ràng, responsive.
+*/
+
+.privacy-policy {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.privacy-policy .container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.privacy-policy h1 {
+  font-size: 1.75rem;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.privacy-policy .effective-date {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.privacy-policy h2 {
+  font-size: 1.125rem;
+  margin: 18px 0 8px;
+  font-weight: 600;
+}
+
+.privacy-policy p,
+.privacy-policy li {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+  color: #000;
+}
+
+.privacy-policy ul,
+.privacy-policy ol {
+  margin: 8px 0 12px 20px;
+}
+
+.privacy-policy a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.privacy-policy .contact a {
+  text-decoration: none;
+  color: #000;
+}
+
+.policy-footer {
+  margin-top: 28px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  color: #222;
+  font-size: 0.95rem;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .privacy-policy {
+    padding: 20px 12px;
+  }
+  .privacy-policy h1 {
+    font-size: 1.5rem;
+  }
+}

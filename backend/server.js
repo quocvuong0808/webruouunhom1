@@ -11,6 +11,7 @@ const uploadRoutes = require('./routes/uploadRoute');
 const customerRoutes = require('./routes/customerRoute');
 const categoryRoutes = require('./routes/categoryRoute');
 const errorMiddleware = require('./middleware/errorMiddleware');
+const chatbotRoutes = require('./routes/chatbotRoute'); // ✅ thêm dòng này
 
 const app = express();
 app.use(cors());

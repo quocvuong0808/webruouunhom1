@@ -44,7 +44,7 @@ export default function OrderModal({ show, onClose, orderId, lastOrderPayload })
 
         <div className="rf-modal-actions">
           <button className="submit-btn" onClick={() => { onClose(); navigate('/'); }}>Quay về trang chủ</button>
-          <button className="back-btn" onClick={() => { onClose(); navigate('/orders'); }}>Xem đơn hàng</button>
+          <button className="back-btn" onClick={() => { onClose(); navigate('/orders'); }}></button>
         </div>
 
         <button className="rf-modal-close" onClick={onClose}>Đóng</button>

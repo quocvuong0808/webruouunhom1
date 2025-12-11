@@ -25,11 +25,12 @@ class CustomerService {
       
       const url = `/customers${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
       const response = await api.get(url);
-      
+      let customers = Array.isArray(response.data) ? response.data : response.data.customers || [];
+      let total = response.data.total || customers.length;
       return {
-        customers: response.data.customers || response.data,
+        customers,
         pagination: response.data.pagination || null,
-        total: response.data.total || response.data.length
+        total
       };
     } catch (error) {
       console.error('Error fetching customers:', error);

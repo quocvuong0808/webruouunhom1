@@ -157,7 +157,7 @@
 }
 
 .btn-add-cart:hover:not(:disabled) {
-  background: #f8ae4f;
+  background: #111111;
 }
 
 .btn-add-cart:disabled {

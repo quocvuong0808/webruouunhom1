@@ -1,22 +1,36 @@
 // API: /orders/stats
 exports.getStats = async (req, res, next) => {
   try {
-    // Tổng số đơn
-    const [totalRows] = await pool.query('SELECT COUNT(*) as total FROM orders');
-    // Tổng doanh thu hôm nay
-    const [todayRevenueRows] = await pool.query("SELECT SUM(total) as revenue, COUNT(*) as count FROM orders WHERE DATE(order_date) = CURDATE()");
-    // Tổng doanh thu tháng này
-    const [monthRevenueRows] = await pool.query("SELECT SUM(total) as revenue, COUNT(*) as count FROM orders WHERE YEAR(order_date) = YEAR(CURDATE()) AND MONTH(order_date) = MONTH(CURDATE())");
+    // Dữ liệu mẫu cho dashboard
     res.json({
-      totalOrders: totalRows[0].total,
-      today: {
-        revenue: todayRevenueRows[0].revenue || 0,
-        count: todayRevenueRows[0].count || 0
-      },
-      month: {
-        revenue: monthRevenueRows[0].revenue || 0,
-        count: monthRevenueRows[0].count || 0
-      }
+      accepted: 2340,
+      inContract: 1782,
+      inApproval: 1596,
+      stages: [
+        { label: 'Active', value: 'confirmed', count: 1200 },
+        { label: 'Draft', value: 'pending', count: 800 },
+        { label: 'Expired', value: 'cancelled', count: 300 },
+        { label: 'Cancelled', value: 'refunded', count: 40 }
+      ],
+      expiring: [
+        { label: 'Within 60 days', count: 20 },
+        { label: 'Within 30 days', count: 10 },
+        { label: 'Expired', count: 5 }
+      ],
+      types: [
+        { label: 'NDA', percent: 70 },
+        { label: 'Insurance', percent: 25 },
+        { label: 'Lease', percent: 50 },
+        { label: 'Maintenance', percent: 65 },
+        { label: 'Purchase Agreement', percent: 12 },
+        { label: 'Sale', percent: 10 }
+      ],
+      cycleTimes: [
+        { label: 'NDA', value: 25 },
+        { label: 'Insurance', value: 45 },
+        { label: 'Lease', value: 18 },
+        { label: 'Purchase', value: 12 }
+      ]
     });
   } catch (err) {
     next(err);
@@ -238,6 +252,39 @@ exports.getUserOrders = async (req, res, next) => {
 
 exports.getAllOrders = async (req, res, next) => {
   try {
+    // Lấy filter từ query
+    const { search, status, startDate, endDate, page = 1, limit = 10 } = req.query;
+    let where = [];
+    let params = [];
+    if (search) {
+      where.push(`(o.order_id LIKE ? OR c.name LIKE ? OR c.email LIKE ? OR c.phone LIKE ?)`);
+      params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
+    }
+    if (status) {
+      where.push(`o.status = ?`);
+      params.push(status);
+    }
+    if (startDate) {
+      where.push(`DATE(o.order_date) >= ?`);
+      params.push(startDate);
+    }
+    if (endDate) {
+      where.push(`DATE(o.order_date) <= ?`);
+      params.push(endDate);
+    }
+    const whereSql = where.length ? `WHERE ${where.join(' AND ')}` : '';
+    const offset = (Number(page) - 1) * Number(limit);
+
+    // Đếm tổng số
+    const [countRows] = await pool.query(`
+      SELECT COUNT(DISTINCT o.order_id) as total
+      FROM orders o
+      LEFT JOIN customers c ON o.customer_id = c.customer_id
+      ${whereSql}
+    `, params);
+    const total = countRows[0]?.total || 0;
+
+    // Lấy dữ liệu
     const [rows] = await pool.query(`
       SELECT o.*, c.name as customer_name, c.email as customer_email,
         GROUP_CONCAT(CONCAT(p.name, ' (x', oi.quantity, ')') SEPARATOR ', ') as items
@@ -245,10 +292,12 @@ exports.getAllOrders = async (req, res, next) => {
       LEFT JOIN customers c ON o.customer_id = c.customer_id
       LEFT JOIN order_items oi ON o.order_id = oi.order_id
       LEFT JOIN products p ON oi.product_id = p.product_id
+      ${whereSql}
       GROUP BY o.order_id
       ORDER BY o.order_date DESC
-    `);
-    res.json(rows);
+      LIMIT ? OFFSET ?
+    `, [...params, Number(limit), offset]);
+    res.json({ orders: rows, total });
   } catch (err) { 
     next(err); 
   }
@@ -258,9 +307,10 @@ exports.updateOrderStatus = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
-    
     await pool.query('UPDATE orders SET status = ? WHERE order_id = ?', [status, id]);
-    res.json({ message: 'Cập nhật trạng thái đơn hàng thành công' });
+    // Trả về đơn hàng mới nhất
+    const [rows] = await pool.query('SELECT * FROM orders WHERE order_id = ?', [id]);
+    res.json({ message: 'Cập nhật trạng thái đơn hàng thành công', order: rows[0] });
   } catch (err) {
     next(err);
   }

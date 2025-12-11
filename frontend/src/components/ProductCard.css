@@ -92,8 +92,8 @@
 }
 .btn-add-cart {
 	background: #fff;
-	color: #f9b404;
-	border: 2px solid #f9b404;
+	color: #0e0e0e;
+	border: 2px solid #101010;
 	border-radius: 10px;
 	padding: 10px 22px;
 	font-size: 1rem;
@@ -106,7 +106,7 @@
 }
 .btn-add-cart:hover {
 	background: #f0fdf4;
-	color: #575146;
+	color: #f7f4f0;
 }
 @media (max-width: 900px) {
 	.product-card {

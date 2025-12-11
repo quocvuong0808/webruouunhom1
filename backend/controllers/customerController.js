@@ -21,12 +21,21 @@ const pool = require('../config/db');
 
 exports.getAllCustomers = async (req, res, next) => {
   try {
+    const { search } = req.query;
+    let where = [];
+    let params = [];
+    if (search) {
+      where.push('(c.name LIKE ? OR c.email LIKE ? OR c.phone LIKE ? OR u.username LIKE ?)');
+      params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
+    }
+    const whereSql = where.length ? `WHERE ${where.join(' AND ')}` : '';
     const [rows] = await pool.query(`
       SELECT c.*, u.username, u.role 
       FROM customers c
       LEFT JOIN users u ON c.user_id = u.user_id
+      ${whereSql}
       ORDER BY c.name
-    `);
+    `, params);
     res.json(rows);
   } catch (err) {
     next(err);

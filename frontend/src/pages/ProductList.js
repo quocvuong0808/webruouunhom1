@@ -142,10 +142,10 @@ export default function ProductList() {
 
   // Get categories - temporary mock data
   const categories = [
-    { category_id: 1, name: 'TRÁI CÂY NHẬP KHẨU' },
-    { category_id: 2, name: 'GIỎ QUÀ TRÁI CÂY' },
-    { category_id: 3, name: 'HOA TƯƠI' },
-    { category_id: 5, name: 'TRÁI CÂY VIỆT NAM' },
+    { category_id: 1, name: 'RƯỢU VANG' },
+    { category_id: 2, name: 'HỘP QUÀ RƯỢU TẾT' },
+    { category_id: 3, name: 'RƯỢU NHẬP KHẨU' },
+    { category_id: 5, name: 'RƯỢU VIỆT NAM' },
 
   ];
 
@@ -321,14 +321,14 @@ export default function ProductList() {
 
   // Tiêu đề động cho type
   const typeTitles = {
-    'vieng': 'GIỎ TRÁI CÂY VIẾNG',
-    'sinh-nhat': 'GIỎ TRÁI CÂY SINH NHẬT',
-    'tan-gia': 'GIỎ TRÁI CÂY TÂN GIA',
-    'cuoi-hoi': 'GIỎ TRÁI CÂY CƯỚI HỎI',
-    'ke-chuc-mung': 'KỆ HOA CHÚC MỪNG',
-    'ke-kinh-vieng': 'KỆ HOA KÍNH VIẾNG',
-    'bo-chuc-mung': 'BÓ HOA CHÚC MỪNG',
-    'bo-kinh-vieng': 'BÓ HOA KÍNH VIẾNG',
+    'vieng': 'HỘP QUÀ RƯỢU LINH CHI',
+    'sinh-nhat': 'HỘP QUÀ RƯỢU VANG TẾT',
+    'tan-gia': 'RƯỢU LINH VẬT',
+    'cuoi-hoi': 'HỘP QUÀ RƯỢU MẠNH TẾT',
+    'ke-chuc-mung': 'RƯỢU HÀN', //KỆ HOA CHÚC MỪNG
+    'ke-kinh-vieng': 'RƯỢU NHẬT',
+    'bo-chuc-mung': 'RƯỢU MỸ',
+    'bo-kinh-vieng': 'RƯỢU CANADA',
   };
   const dynamicTitle = selectedType && typeTitles[selectedType] ? typeTitles[selectedType] : null;
 
@@ -337,7 +337,7 @@ export default function ProductList() {
   let parentName = parentCategory ? parentCategory.name : null;
   // Friendly override: call category 1 "Giỏ quà trái cây" to match menu text
   if (parentCategory && String(parentCategory.category_id) === '1') {
-    parentName = 'TRÁI CÂY NHẬP KHẨU';
+    parentName = 'RƯỢU NGOẠI';
   }
   const breadcrumbTitle = (parentName && dynamicTitle) ? `${parentName} / ${dynamicTitle}` : (dynamicTitle || (parentName ? parentName : null));
 

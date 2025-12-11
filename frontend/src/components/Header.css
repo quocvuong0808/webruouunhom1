@@ -48,7 +48,7 @@ html {
    TOP BAR SECTION (Logo, Search, Icons)
    ======================================== */
 .header-top-bar {
-  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  background: linear-gradient(135deg, #1e1a18 0%, #111110 100%);
   padding: 15px 0;
   width: 100%;
 }
@@ -152,7 +152,7 @@ html {
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
-  background: #4CAF50;
+  background: #1a1b1a;
   border: none;
   width: 40px;
   height: 40px;

@@ -221,8 +221,8 @@ export default function Header() {
           <Link to="/" className="header-logo" onClick={closeMenu}>
             <img src={logo} alt="Oanh Fruits & Flowers Logo" className="logo-img" />
             <div className="logo-text-wrapper">
-              <span className="logo-text-main">Oanh Fruits & Flowers</span>
-              <span className="logo-text-sub">Chuyên gói giỏ trái cây-Giỏ hoa cao cấp</span>
+              <span className="logo-text-main">RuouSiGiaTot</span>
+              <span className="logo-text-sub">Chuyên cung cấp các loại rượu</span>
             </div>
           </Link>
 
@@ -394,34 +394,34 @@ function DesktopNav({ user, isActive, closeMenu, handleLogout, dispatchHoverCate
 
           {/* Imported Fruits */}
       <Link to="/products?category=1" className={`nav-link-item ${isActive('/products?category=1') ? 'active' : ''}`} onClick={() => dispatchHoverCategory(1)}>
-        Trái cây nhập khẩu
+        Rượu Vang
           </Link>
 
           {/* Vietnamese Fruits */}
           <Link to="/products?category=5" className={`nav-link-item ${isActive('/products?category=5') ? 'active' : ''}`} onClick={() => dispatchHoverCategory(5)}>
-            Trái cây Việt Nam
+            Rượu Việt Nam
           </Link>
 
           {/* Fresh Flowers Dropdown */}
           <div className="nav-dropdown-wrapper">
             <Link to="/products?category=3" className="nav-link-item dropdown-trigger" onClick={() => dispatchHoverCategory(3)}>
-              Hoa tươi <span className="arrow">▼</span>
+              Rượu Nhập Khẩu <span className="arrow">▼</span>
             </Link>
             <div className="nav-dropdown-menu">
               <Link to="/products?category=3" className="dropdown-link" onClick={closeMenu}>
-                Tất cả hoa tươi
+                Tất Cả Rượu Khác
               </Link>
               <Link to="/products?category=3&type=ke-chuc-mung" className="dropdown-link" onClick={closeMenu}>
-                Kệ hoa chúc mừng
+                Rượu Hàn
               </Link>
               <Link to="/products?category=3&type=ke-vieng" className="dropdown-link" onClick={closeMenu}>
-                Kệ hoa kính viếng
+                Rượu Nhật
               </Link>
               <Link to="/products?category=3&type=bo-chuc-mung" className="dropdown-link" onClick={closeMenu}>
-                Bó hoa chúc mừng
+                Rượu Mỹ
               </Link>
               <Link to="/products?category=3&type=bo-vieng" className="dropdown-link" onClick={closeMenu}>
-                Bó hoa kính viếng
+                Rượu CaNaDa
               </Link>
             </div>
           </div>
@@ -429,23 +429,23 @@ function DesktopNav({ user, isActive, closeMenu, handleLogout, dispatchHoverCate
           {/* Fruit Baskets Dropdown */}
           <div className="nav-dropdown-wrapper">
             <Link to="/products?category=2" className="nav-link-item dropdown-trigger" onClick={() => dispatchHoverCategory(2)}>
-              Giỏ quà trái cây <span className="arrow">▼</span>
+              Hộp quà rượu tết<span className="arrow">▼</span>
             </Link>
             <div className="nav-dropdown-menu">
               <Link to="/products?category=2" className="dropdown-link" onClick={closeMenu}>
                   Tất cả giỏ quà
                 </Link>
                 <Link to="/products?category=2&type=sinh-nhat" className="dropdown-link" onClick={closeMenu}>
-                  Giỏ sinh nhật
+                  Hộp quà rượu vang tết
                 </Link>
                 <Link to="/products?category=2&type=cuoi-hoi" className="dropdown-link" onClick={closeMenu}>
-                  Giỏ cưới hỏi
+                  Hộp quà rượu mạnh tết
                 </Link>
                 <Link to="/products?category=2&type=tan-gia" className="dropdown-link" onClick={closeMenu}>
-                  Giỏ tân gia
+                  Rượu linh vật
                 </Link>
                 <Link to="/products?category=2&type=vieng" className="dropdown-link" onClick={closeMenu}>
-                  Giỏ viếng
+                  Hộp quà rượu linh chi
                 </Link>
             </div>
           </div>

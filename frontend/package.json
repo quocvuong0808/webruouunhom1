@@ -8,6 +8,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.12.2",
+    "chart.js": "^4.5.1",
     "react": "^18.2.0",
     "react-datepicker": "^8.7.0",
     "react-dom": "^18.2.0",
@@ -20,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-  "build-sitemap": "node scripts/generate-sitemap.js",
+    "build-sitemap": "node scripts/generate-sitemap.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

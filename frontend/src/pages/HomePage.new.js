@@ -10,7 +10,9 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Cuộn trang lên đầu mỗi khi trang HomePage được load
   useEffect(() => {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang
     loadFeaturedProducts();
   }, []);
 
@@ -38,7 +40,7 @@ export default function HomePage() {
         </div>
       );
     }
-    
+
     if (error) {
       return (
         <div className="error-state">
@@ -48,17 +50,17 @@ export default function HomePage() {
         </div>
       );
     }
-    
+
     if (!products.length) {
       return (
         <div className="empty-state">
-          <div className="empty-icon">🍎</div>
+          <div className="empty-icon"></div>
           <h3>Hiện chưa có sản phẩm nổi bật</h3>
           <p>Chúng tôi đang cập nhật thêm sản phẩm mới. Quý khách vui lòng quay lại sau!</p>
         </div>
       );
     }
-    
+
     return (
       <div className="homepage-products-grid">
         {products.map(product => (
@@ -71,23 +73,22 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <Helmet>
-        <title>OanhTraiCay - Trái cây tươi & giỏ quà cao cấp</title>
+        <title>web bán rượu</title>
         <meta name="description" content="OanhTraiCay - Chuyên trái cây chất lượng và giỏ quà, đóng gói sang trọng, giao nhanh tận nơi." />
         <meta property="og:title" content="OanhTraiCay - Trái cây tươi & giỏ quà cao cấp" />
         <meta property="og:description" content="Chuyên trái cây chất lượng và giỏ quà, đóng gói sang trọng, giao nhanh tận nơi." />
         <meta property="og:url" content={`https://oanhtraicay.com/`} />
       </Helmet>
+
       {/* Phần Banner Chính */}
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-text">
-            
-            
             <Link to="/products" className="hero-cta">
               🛒 Mua sắm ngay
             </Link>
           </div>
-          
+
           <div className="hero-image">
             <div className="hero-emoji"></div>
           </div>
@@ -99,9 +100,9 @@ export default function HomePage() {
         <div className="section-header">
           <h2 className="homepage-section-title">Sản Phẩm Nổi Bật</h2>
         </div>
-        
+
         {renderProductsGrid()}
-        
+
         {!loading && !error && products.length > 0 && (
           <div className="section-footer">
             <Link to="/products" className="view-all-btn">

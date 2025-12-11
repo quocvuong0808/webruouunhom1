@@ -160,7 +160,7 @@ export default function OrderSuccessPage() {
                 className="secondary-btn"
                 onClick={handleViewOrders}
               >
-                Xem đơn hàng của tôi
+              
               </button>
             )}
             

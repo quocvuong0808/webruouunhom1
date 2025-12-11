@@ -12,16 +12,16 @@ const ProductEditAdminPage = () => {
   const fruitBasketTypes = [
     { value: '', label: 'Không chọn nhóm nhỏ' },
     // Giỏ trái cây
-    { value: 'vieng', label: 'Giỏ trái cây viếng' },
-    { value: 'sinh-nhat', label: 'Giỏ trái cây sinh nhật' },
-    { value: 'tan-gia', label: 'Giỏ trái cây tân gia' },
-    { value: 'cuoi-hoi', label: 'Giỏ trái cây cưới hỏi' },
+    { value: 'vieng', label: 'Hộp quà rượu linh chi' },
+    { value: 'sinh-nhat', label: 'Hộp quà rượu vang tết' },
+    { value: 'tan-gia', label: 'Hộp quà rượu linh chi' },
+    { value: 'cuoi-hoi', label: 'Hộp quà rượu mạnh tết' },
     // Kệ hoa
-    { value: 'ke-chuc-mung', label: 'Kệ hoa chúc mừng' },
-    { value: 'ke-kinh-vieng', label: 'Kệ hoa kính viếng' },
+    { value: 'ke-chuc-mung', label: 'Rượu Hàn' },
+    { value: 'ke-kinh-vieng', label: 'Rượu Nhật' },
     // Bó hoa
-    { value: 'bo-chuc-mung', label: 'Bó hoa chúc mừng' },
-    { value: 'bo-kinh-vieng', label: 'Bó hoa kính viếng' },
+    { value: 'bo-chuc-mung', label: 'Rượu Mỹ' },
+    { value: 'bo-kinh-vieng', label:'Rượu Canada' },
   ];
   const [form, setForm] = useState({
     name: '',
