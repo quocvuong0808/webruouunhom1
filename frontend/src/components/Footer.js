@@ -17,7 +17,7 @@ function Footer() {
             <img src={require('../assets/LOGO.png')} alt="FruitShop Logo" className="logo-img" style={{width: 40, height: 40, objectFit: 'contain', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.18))'}} />
             <h2 className="logo-title">RUOUSIGIATOT</h2>
           </div>
-          <p className="footer-subtitle">RƯỢU NGOẠI CHẤT LƯỢNG</p>
+          <p className="footer-subtitle">RƯỢU VANG CHẤT LƯỢNG</p>
           <p className="footer-description">
             Cung cấp những loại rượu ngoại ngon và chất lượng cao nhất 
             từ các vùng miền khắp Việt Nam và thế giới.

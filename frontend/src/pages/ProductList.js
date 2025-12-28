@@ -337,7 +337,7 @@ export default function ProductList() {
   let parentName = parentCategory ? parentCategory.name : null;
   // Friendly override: call category 1 "Giỏ quà trái cây" to match menu text
   if (parentCategory && String(parentCategory.category_id) === '1') {
-    parentName = 'RƯỢU NGOẠI';
+    parentName = 'RƯỢU VANG';
   }
   const breadcrumbTitle = (parentName && dynamicTitle) ? `${parentName} / ${dynamicTitle}` : (dynamicTitle || (parentName ? parentName : null));
 

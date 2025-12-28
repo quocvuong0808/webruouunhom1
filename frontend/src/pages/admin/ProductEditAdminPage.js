@@ -1,9 +1,19 @@
+// Danh sách danh mục sản phẩm
 import React, { useEffect, useState, useRef } from 'react';
 import { getProductById, createProduct, updateProduct } from '../../services/productService';
 import api from '../../services/api';
 import authService from '../../services/authService';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ProductAdmin.css';
+
+const categories = [
+  { category_id: 1, name: 'RƯỢU VANG' },
+  { category_id: 2, name: 'HỘP QUÀ RƯỢU TẾT' },
+  { category_id: 3, name: 'RƯỢU NHẬP KHẨU' },
+  { category_id: 5, name: 'RƯỢU VIỆT NAM' },
+  // Thêm các danh mục khác nếu cần
+];
+
 
 const ProductEditAdminPage = () => {
   const { id } = useParams();
@@ -198,8 +208,13 @@ const ProductEditAdminPage = () => {
           <input type="number" name="price" value={form.price} onChange={handleChange} required min={0} />
         </div>
         <div className="form-group">
-          <label>Danh mục ID:</label>
-          <input type="number" name="category_id" value={form.category_id} onChange={handleChange} required min={1} />
+          <label>Danh mục:</label>
+          <select name="category_id" value={form.category_id} onChange={handleChange} required>
+            <option value="">Chọn danh mục</option>
+            {categories.map(cat => (
+              <option key={cat.category_id} value={cat.category_id}>{cat.name}</option>
+            ))}
+          </select>
         </div>
         {/* Nhóm nhỏ (sub-category/type) */}
         <div className="form-group">

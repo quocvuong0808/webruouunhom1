@@ -103,10 +103,16 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = Number(req.params.id); // Đảm bảo kiểu số
+    // Xóa order_items liên quan trước
+    await pool.query('DELETE FROM order_items WHERE product_id = ?', [id]);
+    // Sau đó xóa sản phẩm
     await pool.query('DELETE FROM products WHERE product_id = ?', [id]);
     res.json({ message: 'Xóa thành công' });
-  } catch (err) { next(err); }
+  } catch (err) {
+    console.error('Lỗi xóa sản phẩm:', err);
+    next(err);
+  }
 };
 
 // API: /products/stats

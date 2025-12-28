@@ -122,72 +122,77 @@ export default function CheckoutPage() {
 		}
 	};
 
-	const handleSubmitOrder = async (e) => {
-		e.preventDefault();
-		const { valid, newErrors } = validateForm();
-		if (!valid) {
-			const firstKey = Object.keys(newErrors)[0];
-			const firstMsg = firstKey ? newErrors[firstKey] : 'Vui lòng kiểm tra lại thông tin';
-			showError(firstMsg, 'error');
-			return;
-		}
+	       const handleSubmitOrder = async (e) => {
+		       e.preventDefault();
+		       if (!user) {
+			       showError('Bạn cần đăng nhập để đặt hàng!', 'error');
+			       navigate('/login', { state: { from: '/checkout' } });
+			       return;
+		       }
+		       const { valid, newErrors } = validateForm();
+		       if (!valid) {
+			       const firstKey = Object.keys(newErrors)[0];
+			       const firstMsg = firstKey ? newErrors[firstKey] : 'Vui lòng kiểm tra lại thông tin';
+			       showError(firstMsg, 'error');
+			       return;
+		       }
 
-		setLoading(true);
-		try {
-			let storedUser = null;
-			try { storedUser = JSON.parse(localStorage.getItem('user') || 'null'); } catch (_) { storedUser = null; }
-			const resolvedCustomerId = user?.user_id || user?.id || storedUser?.user_id || storedUser?.id || null;
+		       setLoading(true);
+		       try {
+			       let storedUser = null;
+			       try { storedUser = JSON.parse(localStorage.getItem('user') || 'null'); } catch (_) { storedUser = null; }
+			       const resolvedCustomerId = user?.user_id || user?.id || storedUser?.user_id || storedUser?.id || null;
 
-			const deliveryTimeStr = buildDeliveryTimeString(formData.deliveryTime);
+			       const deliveryTimeStr = buildDeliveryTimeString(formData.deliveryTime);
 
-			const payload = {
-				items: cart.map(i => ({
-					product_id: i.product_id,
-					quantity: Number(i.quantity) || 1,
-					price: typeof i.price === 'string' ? Number(i.price) : i.price
-				})),
-				customer_info: {
-					full_name: formData.fullName,
-					phone: formData.phone,
-					address: `${formData.address}, ${formData.district}, ${formData.city}`,
-					address_line: formData.address,
-					district: formData.district,
-					city: formData.city,
-					receiver_name: formData.receiverName,
-					receiver_phone: formData.receiverPhone,
-					delivery_time: deliveryTimeStr,
-					notes: formData.notes || ''
-				},
-				payment_method: formData.paymentMethod || 'cod',
-				total_amount: getCartTotal(),
-				customer_id: resolvedCustomerId
-			};
+			       const payload = {
+				       items: cart.map(i => ({
+					       product_id: i.product_id,
+					       quantity: Number(i.quantity) || 1,
+					       price: typeof i.price === 'string' ? Number(i.price) : i.price
+				       })),
+				       customer_info: {
+					       full_name: formData.fullName,
+					       phone: formData.phone,
+					       address: `${formData.address}, ${formData.district}, ${formData.city}`,
+					       address_line: formData.address,
+					       district: formData.district,
+					       city: formData.city,
+					       receiver_name: formData.receiverName,
+					       receiver_phone: formData.receiverPhone,
+					       delivery_time: deliveryTimeStr,
+					       notes: formData.notes || ''
+				       },
+				       payment_method: formData.paymentMethod || 'cod',
+				       total_amount: getCartTotal(),
+				       customer_id: resolvedCustomerId
+			       };
 
-			try { console.log('ORDER_PAYLOAD', JSON.stringify(payload, null, 2)); } catch (_) {}
+			       try { console.log('ORDER_PAYLOAD', JSON.stringify(payload, null, 2)); } catch (_) {}
 
-			setLastOrderPayload(payload);
-			const resp = await api.post('/orders', payload);
+			       setLastOrderPayload(payload);
+			       const resp = await api.post('/orders', payload);
 
-			// If backend returns order id, show modal with order information
-			const orderId = resp?.data?.order_id || null;
-			if (orderId) {
-				setCreatedOrderId(orderId);
-				console.log('Order created, showing modal', orderId);
-				setShowOrderModal(true);
-			} else {
-				setOrderSuccess(true);
-				// if no modal, clear cart immediately
-				try { clearCart(); } catch (e) { }
-			}
-			dispatchOrdersRefresh();
-		} catch (err) {
-			console.error('Order submission error', err, err?.response?.data);
-			const serverMsg = err?.response?.data?.message || (err?.response?.data ? JSON.stringify(err.response.data) : null);
-			showError(serverMsg || 'Đặt hàng thất bại. Vui lòng thử lại!', 'error');
-		} finally {
-			setLoading(false);
-		}
-	};
+			       // If backend returns order id, show modal with order information
+			       const orderId = resp?.data?.order_id || null;
+			       if (orderId) {
+				       setCreatedOrderId(orderId);
+				       console.log('Order created, showing modal', orderId);
+				       setShowOrderModal(true);
+			       } else {
+				       setOrderSuccess(true);
+				       // if no modal, clear cart immediately
+				       try { clearCart(); } catch (e) { }
+			       }
+			       dispatchOrdersRefresh();
+		       } catch (err) {
+			       console.error('Order submission error', err, err?.response?.data);
+			       const serverMsg = err?.response?.data?.message || (err?.response?.data ? JSON.stringify(err.response.data) : null);
+			       showError(serverMsg || 'Đặt hàng thất bại. Vui lòng thử lại!', 'error');
+		       } finally {
+			       setLoading(false);
+		       }
+	       };
 
 	if (!cart || cart.length === 0) return null;
 
