@@ -65,23 +65,27 @@ export default function Header() {
 
   // Fetch recent user orders when opening the orders menu (only for authenticated users)
   const toggleOrdersMenu = useCallback(async () => {
+    const willOpen = !ordersMenuOpen;
     setOrdersMenuOpen(prev => !prev);
     // If opening and we don't have orders yet, fetch them
-    if (!ordersMenuOpen && !orders && user) {
+    if (willOpen && user) {
       setOrdersLoading(true);
       setOrdersError(null);
       try {
         const res = await getUserOrders({ limit: 5, sortBy: 'order_date', sortOrder: 'desc' });
-        const list = res.orders || res;
+        // Backend returns array directly, but service might wrap it
+        const list = Array.isArray(res) ? res : (res.orders || res.data || []);
         const formatted = (list || []).map(o => formatOrderForDisplay(o));
         setOrders(formatted);
+        console.log('Orders fetched:', formatted.length, 'orders');
       } catch (err) {
-        setOrdersError(err?.userMessage || err.message || 'Không thể tải đơn hàng');
+        console.error('Error fetching orders:', err);
+        setOrdersError(err?.userMessage || err?.response?.data?.message || err.message || 'Không thể tải đơn hàng');
       } finally {
         setOrdersLoading(false);
       }
     }
-  }, [ordersMenuOpen, orders, user]);
+  }, [ordersMenuOpen, user]);
 
   // Close orders menu on outside click
   useEffect(() => {
@@ -104,13 +108,20 @@ export default function Header() {
       if (!user) return;
       setOrdersLoading(true);
       setOrdersError(null);
+      // Clear old orders while loading to show fresh data
+      if (mounted) setOrders(null);
       try {
         const res = await getUserOrders({ limit: 5, sortBy: 'order_date', sortOrder: 'desc' });
-        const list = res.orders || res;
+        // Backend returns array directly, but service might wrap it
+        const list = Array.isArray(res) ? res : (res.orders || res.data || []);
         const formatted = (list || []).map(o => formatOrderForDisplay(o));
-        if (mounted) setOrders(formatted);
+        if (mounted) {
+          setOrders(formatted);
+          console.log('Orders refreshed:', formatted.length, 'orders');
+        }
       } catch (err) {
-        if (mounted) setOrdersError(err?.userMessage || err.message || 'Không thể tải đơn hàng');
+        console.error('Error refreshing orders:', err);
+        if (mounted) setOrdersError(err?.userMessage || err?.response?.data?.message || err.message || 'Không thể tải đơn hàng');
       } finally {
         if (mounted) setOrdersLoading(false);
       }
@@ -308,20 +319,23 @@ export default function Header() {
                         )}
                         {!ordersLoading && orders && orders.length > 0 && (
                           <ul className="orders-list">
-                            {orders.map(o => (
-                              <li key={o.id || o._id} className="orders-item">
-                                <a href={`/orders/${o.id || o._id}`} onClick={() => setOrdersMenuOpen(false)}>
-                                  <div className="orders-item-top">
-                                    <span className="orders-item-id">#{o.id || o._id}</span>
-                                    <span className="orders-item-amount">{o.formattedAmount}</span>
-                                  </div>
-                                  <div className="orders-item-meta">
-                                    <span className="orders-item-date">{o.formattedDate}</span>
-                                    <span className="orders-item-status">{o.statusInfo?.label}</span>
-                                  </div>
-                                </a>
-                              </li>
-                            ))}
+                            {orders.map(o => {
+                              const orderId = o.order_id || o.id || o._id;
+                              return (
+                                <li key={orderId} className="orders-item">
+                                  <a href={`/orders/${orderId}`} onClick={() => setOrdersMenuOpen(false)}>
+                                    <div className="orders-item-top">
+                                      <span className="orders-item-id">#{orderId}</span>
+                                      <span className="orders-item-amount">{o.formattedAmount}</span>
+                                    </div>
+                                    <div className="orders-item-meta">
+                                      <span className="orders-item-date">{o.formattedDate}</span>
+                                      <span className="orders-item-status">{o.statusInfo?.label || o.status || 'Chờ xử lý'}</span>
+                                    </div>
+                                  </a>
+                                </li>
+                              );
+                            })}
                           </ul>
                         )}
                         <div className="orders-dropdown-footer">

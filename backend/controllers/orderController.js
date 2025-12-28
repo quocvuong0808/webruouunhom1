@@ -85,12 +85,28 @@ exports.createOrder = async (req, res, next) => {
       const user_id = req.user.user_id;
       const [cusRows] = await pool.query('SELECT customer_id, name, email, phone FROM customers WHERE user_id = ?', [user_id]);
       if (!cusRows.length) {
-        return res.status(400).json({ message: 'Không tìm thấy thông tin khách hàng' });
+        // Nếu chưa có customer record, tạo mới và liên kết với user_id
+        if (!customer_info || typeof customer_info !== 'object') {
+          return res.status(400).json({ message: 'Vui lòng nhập đầy đủ thông tin khách hàng' });
+        }
+        const insertEmail = customer_info.email && customer_info.email.trim() ? customer_info.email.trim() : null;
+        const insertPhone = customer_info.phone && customer_info.phone.trim() ? customer_info.phone.trim() : null;
+        const insertAddress = customer_info.address || null;
+        
+        const [result] = await pool.query(
+          'INSERT INTO customers (user_id, name, email, phone, address) VALUES (?, ?, ?, ?, ?)',
+          [user_id, customer_info.full_name, insertEmail, insertPhone, insertAddress]
+        );
+        customer_id = result.insertId;
+        customer_name = customer_info.full_name;
+        customer_email = insertEmail;
+        customer_phone = insertPhone;
+      } else {
+        customer_id = cusRows[0].customer_id;
+        customer_name = cusRows[0].name;
+        customer_email = cusRows[0].email;
+        customer_phone = cusRows[0].phone;
       }
-      customer_id = cusRows[0].customer_id;
-      customer_name = cusRows[0].name;
-      customer_email = cusRows[0].email;
-      customer_phone = cusRows[0].phone;
     } else {
       // Khách chưa đăng nhập: email bây giờ là tùy chọn.
       if (!customer_info || typeof customer_info !== 'object') {

@@ -115,10 +115,10 @@ export default function ProductDetail() {
     );
   }
 
-  const metaTitle = `${product.name} | OanhTraiCay`;
-  const metaDescription = (product.description && String(product.description).replace(/\s+/g, ' ').slice(0, 160)) || product.summary || `Mua ${product.name} tại OanhTraiCay`;
+  const metaTitle = `${product.name} | TuanRuou`;
+  const metaDescription = (product.description && String(product.description).replace(/\s+/g, ' ').slice(0, 160)) || product.summary || `Mua ${product.name} tại TuanRuou`;
   const metaImage = product.image || (product.images && product.images[0]) || '';
-  const metaUrl = `https://oanhtraicay.com/products/${id}`;
+  const metaUrl = `https://tuanruou.com/products/${id}`;
 
   return (
     <>
@@ -142,7 +142,7 @@ export default function ProductDetail() {
             "mpn": product.product_id || undefined,
             "brand": {
               "@type": "Brand",
-              "name": product.brand || 'OanhTraiCay'
+              "name": product.brand || 'TuanRuou'
             },
             "offers": {
               "@type": "Offer",

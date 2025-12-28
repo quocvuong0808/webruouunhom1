@@ -172,8 +172,8 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <Helmet>
-        <title>{isRegister ? 'Tạo tài khoản | OanhTraiCay' : 'Đăng nhập | OanhTraiCay'}</title>
-        <meta name="description" content={isRegister ? 'Tạo tài khoản mới tại OanhTraiCay để đặt hàng và quản lý đơn hàng dễ dàng.' : 'Đăng nhập vào OanhTraiCay để tiếp tục mua sắm và quản lý đơn hàng của bạn.'} />
+        <title>{isRegister ? 'Tạo tài khoản | TuanRuou' : 'Đăng nhập | TuanRuou'}</title>
+        <meta name="description" content={isRegister ? 'Tạo tài khoản mới tại TuanRuou để đặt hàng và quản lý đơn hàng dễ dàng.' : 'Đăng nhập vào TuanRuou để tiếp tục mua sắm và quản lý đơn hàng của bạn.'} />
       </Helmet>
       <div className="login-container">
         <div className="login-header">

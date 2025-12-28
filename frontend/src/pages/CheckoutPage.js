@@ -201,7 +201,7 @@ export default function CheckoutPage() {
 			<div className="checkout-page">
 			<OrderModal show={showOrderModal} onClose={closeOrderModal} orderId={createdOrderId} lastOrderPayload={lastOrderPayload} />
 				<Helmet>
-					<title>Đặt hàng thành công | OanhTraiCay</title>
+					<title>Đặt hàng thành công | TuanRuou</title>
 				</Helmet>
 				<div className="container">
 					<div className="checkout-header">
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
 		<div className="checkout-page">
 			<OrderModal show={showOrderModal} onClose={closeOrderModal} orderId={createdOrderId} lastOrderPayload={lastOrderPayload} />
 			<Helmet>
-				<title>Thanh toán - OanhTraiCay</title>
+				<title>Thanh toán - TuanRuou</title>
 			</Helmet>
 
 			<div className="container">

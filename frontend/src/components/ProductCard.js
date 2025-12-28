@@ -65,7 +65,7 @@ export default function ProductCard({ product }) {
         <img
           src={imageUrl}
           className="product-image"
-          alt={product.name ? `${product.name} - Giỏ trái cây cao cấp từ OanhTraiCay` : 'Sản phẩm OanhTraiCay'}
+          alt={product.name ? `${product.name} - Giỏ trái cây cao cấp từ TuanRuou` : 'Sản phẩm TuanRuou'}
           loading="lazy"
           decoding="async"
           srcSet={srcSet}

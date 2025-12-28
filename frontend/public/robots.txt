@@ -7,5 +7,5 @@ Disallow: /api/
 Allow: /
 
 # Point crawlers to the sitemap. Updated to your site domain.
-Sitemap: https://oanhtraicay.com/sitemap.xml
-Host: https://oanhtraicay.com
+Sitemap: https://tuanruou.com/sitemap.xml
+Host: https://tuanruou.com

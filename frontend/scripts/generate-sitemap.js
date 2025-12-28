@@ -10,7 +10,7 @@
  *   node scripts/generate-sitemap.js
  * Environment:
  *   REACT_APP_API_URL - base API url (default http://localhost:5000/api)
- *   SITEMAP_BASE_URL - public site base (default https://oanhtraicay.com)
+ *   SITEMAP_BASE_URL - public site base (default https://tuanruou.com)
  *   SITEMAP_GZIP - if '1' will write gzipped sitemap files
  */
 
@@ -20,7 +20,7 @@ const path = require('path');
 const zlib = require('zlib');
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-const SITE_BASE = process.env.SITEMAP_BASE_URL || 'https://oanhtraicay.com';
+const SITE_BASE = process.env.SITEMAP_BASE_URL || 'https://tuanruou.com';
 const OUT_DIR = path.join(__dirname, '..', 'public');
 const LIMIT = 200; // page size
 const MAX_URLS_PER_SITEMAP = 50000;

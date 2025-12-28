@@ -326,14 +326,23 @@ class OrderService {
     const statuses = this.getOrderStatuses();
     const statusInfo = statuses.find(s => s.value === order.status) || statuses[0];
     
+    // Backend returns 'total', but some code might use 'total_amount'
+    const totalAmount = order.total_amount || order.total || 0;
+    // Backend returns 'order_id', but some code might use 'id' or '_id'
+    const orderId = order.order_id || order.id || order._id;
+    
     return {
       ...order,
+      id: orderId,
+      order_id: orderId,
+      total_amount: totalAmount,
+      total: totalAmount,
       statusInfo,
-      formattedDate: new Date(order.order_date).toLocaleDateString(),
+      formattedDate: order.order_date ? new Date(order.order_date).toLocaleDateString('vi-VN') : '',
       formattedAmount: new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND'
-      }).format(order.total_amount)
+      }).format(totalAmount)
     };
   }
 }

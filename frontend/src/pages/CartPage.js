@@ -35,10 +35,10 @@ export default function CartPage() {
     return (
       <div className="cart-page">
         <Helmet>
-          <title>Giỏ hàng | OanhTraiCay</title>
-          <meta name="description" content="Xem giỏ hàng của bạn tại OanhTraiCay — chỉnh sửa số lượng hoặc tiếp tục mua sắm. Giao hàng nhanh, đóng gói cẩn thận." />
-          <meta property="og:title" content="Giỏ hàng | OanhTraiCay" />
-          <meta property="og:description" content="Xem giỏ hàng của bạn tại OanhTraiCay — chỉnh sửa số lượng hoặc tiếp tục mua sắm." />
+          <title>Giỏ hàng | TuanRuou</title>
+          <meta name="description" content="Xem giỏ hàng của bạn tại TuanRuou — chỉnh sửa số lượng hoặc tiếp tục mua sắm. Giao hàng nhanh, đóng gói cẩn thận." />
+          <meta property="og:title" content="Giỏ hàng | TuanRuou" />
+          <meta property="og:description" content="Xem giỏ hàng của bạn tại TuanRuou — chỉnh sửa số lượng hoặc tiếp tục mua sắm." />
         </Helmet>
         <div className="container">
           <div className="empty-cart">
